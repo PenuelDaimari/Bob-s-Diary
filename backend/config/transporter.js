@@ -3,8 +3,10 @@ import config from "./config.js";
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false,
+    requireTLS:true,
+    family:4,
     auth: {
         type: 'OAuth2',
         user: config.GOOGLE_USER,
@@ -12,6 +14,9 @@ const transporter = nodemailer.createTransport({
         clientSecret: config.CLIENT_SECRET,
         refreshToken: config.GOOGLE_REFRESH_TOKEN,
     },
+    tls:{
+        rejectUnauthorized:true,
+    }
 });
 
 transporter.verify((error, success) => {
